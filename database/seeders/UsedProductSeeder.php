@@ -5,16 +5,16 @@ namespace Database\Seeders;
 use App\Models\AppliedService;
 use App\Models\UsedProduct;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 
-class UsedProductSeeder extends Seeder
+class UsedProductSeeder extends BaseSeeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        UsedProduct::factory()->count(300)->create();
+        $this->isOnLocal() && $this->count = 300;
+        UsedProduct::factory()->count($this->count)->create();
 
         $appliedServices = AppliedService::whereNotIn('id', function($query) {
             $query->select('applied_service_id')->from(with(new UsedProduct)->getTable());

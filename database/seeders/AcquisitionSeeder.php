@@ -3,15 +3,15 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 
-class AcquisitionSeeder extends Seeder
+class AcquisitionSeeder extends BaseSeeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        \App\Models\Acquisition::factory()->count(200)->create();
+        $this->isOnLocal() && $this->count = 200;
+        \App\Models\Acquisition::factory()->count($this->count)->create();
     }
 }

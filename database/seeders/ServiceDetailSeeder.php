@@ -5,16 +5,16 @@ namespace Database\Seeders;
 use App\Models\AppliedService;
 use App\Models\ServiceDetail;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 
-class ServiceDetailSeeder extends Seeder
+class ServiceDetailSeeder extends BaseSeeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        ServiceDetail::factory()->count(600)->create();
+        $this->isOnLocal() && $this->count = 600;
+        ServiceDetail::factory()->count($this->count)->create();
 
         $appliedServices = AppliedService::whereNotIn('id', function($query) {
             $query->select('applied_service_id')->from(with(new ServiceDetail)->getTable());

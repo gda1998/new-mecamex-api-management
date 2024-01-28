@@ -5,16 +5,16 @@ namespace Database\Seeders;
 use App\Models\Acquisition;
 use App\Models\AcquisitionDetail;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 
-class AcquisitionDetailSeeder extends Seeder
+class AcquisitionDetailSeeder extends BaseSeeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        AcquisitionDetail::factory()->count(500)->create();
+        $this->isOnLocal() && $this->count = 500;
+        AcquisitionDetail::factory()->count($this->count)->create();
 
         $acquisitions = Acquisition::whereNotIn('id', function($query) {
             $query->select('id')->from(with(new AcquisitionDetail)->getTable());

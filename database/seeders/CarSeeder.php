@@ -3,15 +3,15 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 
-class CarSeeder extends Seeder
+class CarSeeder extends BaseSeeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        \App\Models\Car::factory()->count(100)->create();
+        $this->isOnLocal() && $this->count = 100;
+        \App\Models\Car::factory()->count($this->count)->create();
     }
 }

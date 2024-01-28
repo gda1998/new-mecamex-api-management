@@ -3,15 +3,15 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 
-class AppliedServiceSeeder extends Seeder
+class AppliedServiceSeeder extends BaseSeeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        \App\Models\AppliedService::factory()->count(300)->create();
+        $this->isOnLocal() && $this->count = 300;
+        \App\Models\AppliedService::factory()->count($this->count)->create();
     }
 }
