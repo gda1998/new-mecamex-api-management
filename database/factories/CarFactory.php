@@ -18,7 +18,7 @@ class CarFactory extends Factory
     {
         return [
             'car_plate' => fake()->isbn10(),
-            'car_serie_id' => \App\Models\CarSerie::inRandomOrder()->first(),
+            'car_serie_id' => \App\Models\CarSeries::inRandomOrder()->first(),
             'owner_id' => \App\Models\User::inRandomOrder()->where('role_id', 4)->first(), // 4 = Client role
         ];
     }

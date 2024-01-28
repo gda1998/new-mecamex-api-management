@@ -14,41 +14,44 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * Class CarModel
+ * Class CarSeries
  * 
  * @property int $id
- * @property string $name
- * @property int $car_brand_id
+ * @property string|null $name
+ * @property int $year
+ * @property int $car_model_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * 
- * @property CarBrand $carBrand
- * @property Collection|CarSeries[] $carSeries
+ * @property CarModel $carModel
+ * @property Collection|Car[] $cars
  *
  * @package App\Models
  */
-class CarModel extends Model
+class CarSeries extends Model
 {
 	use HasFactory;
 
-	protected $table = 'car_models';
+	protected $table = 'car_series';
 
 	protected $casts = [
-		'car_brand_id' => 'int'
+		'year' => 'int',
+		'car_model_id' => 'int'
 	];
 
 	protected $fillable = [
 		'name',
-		'car_brand_id'
+		'year',
+		'car_model_id'
 	];
 
-	public function carBrand(): BelongsTo
+	public function carModel(): BelongsTo
 	{
-		return $this->belongsTo(CarBrand::class);
+		return $this->belongsTo(CarModel::class);
 	}
 
-	public function carSeries(): HasMany
+	public function cars(): HasMany
 	{
-		return $this->hasMany(CarSeries::class);
+		return $this->hasMany(Car::class, 'car_serie_id');
 	}
 }

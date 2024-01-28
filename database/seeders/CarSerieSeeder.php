@@ -42,7 +42,7 @@ class CarSerieSeeder extends Seeder
         ];
 
         foreach ($carSeries as $carSerie) {
-            \App\Models\CarSerie::create($carSerie);
+            \App\Models\CarSeries::create($carSerie);
         }
     }
 }
